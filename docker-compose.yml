@@ -1,0 +1,19 @@
+version: '3'
+services:
+  bot:
+    container_name: telegram-bot
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DISPLAY=:99
+    depends_on:
+      - chrome
+  chrome:
+      privileged: true
+      image: selenium/standalone-chrome
+      ports:
+        - "4444:4444"
